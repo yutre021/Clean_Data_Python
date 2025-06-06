@@ -1174,3 +1174,21 @@ banking['acct_year'] = banking['account_opened'].dt.strftime('%Y')
 print(banking['acct_year'])
 
 ```
+
+
+### Cross field Validation 
+
+```python
+import pandas as pd
+import datetime as dt
+# Convert to datetime and get today's date
+users['Birthday'] = pd.to_datetime(users['Birthday'])
+today = dt.date.today()
+# For each row in the Birthday column, calculate year difference
+age_manual = today.year - users['Birthday'].dt.year
+# Find instances where ages match
+age_equ = age_manual == users['Age']
+# Find and filter out rows with inconsistent age
+inconsistent_age = users[~age_equ]
+consistent_age = users[age_equ]
+```
