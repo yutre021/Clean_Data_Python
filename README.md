@@ -652,3 +652,142 @@ duplicated_rides = ride_unique[duplicates == True]
 # Assert duplicates are processed
 assert duplicated_rides.shape[0] == 0
 ```
+
+
+# Data Quality: Categories, Problems, Solutions, and Joins (Qualidade de Dados: Categorias, Problemas, Soluções e Junções)
+
+Ensuring high data quality is paramount for reliable analysis and robust applications. This involves understanding common data types, identifying potential issues stemming from data entry or parsing, applying appropriate cleaning strategies, and effectively combining datasets using various join operations.
+
+---
+
+## English Version
+
+### 1. Categories and Membership Constraints
+
+Categorical data involves values that belong to a predefined, finite set of categories. These categories can often be represented numerically for easier processing, while retaining their original meaning.
+
+| Type of data          | Example values            | Numeric representation |
+| :-------------------- | :------------------------ | :--------------------- |
+| **Marriage Status** | `unmarried`, `married`    | `0`, `1`               |
+| **Household Income Category** | `0-20K`, `20-40K`, etc. | `0`, `1`, etc.         |
+| **Loan Status** | `default`, `payed`, `no_loan` | `0`, `1`, `2`          |
+
+* **Explanation:** These are examples where textual categories are mapped to discrete numerical values. This practice is common in data preparation, especially for machine learning models that prefer numerical inputs. The key is that the set of possible values for these categories is finite and well-defined.
+
+### 2. Why Data Quality Problems Arise
+
+Data quality issues, particularly concerning categorical data, can stem from various sources:
+
+* **Data Entry Errors:** These occur when human input is inconsistent or incorrect.
+    * **Free text:** Allows users to type anything, leading to typos, variations in spelling (e.g., "NY" vs. "New York"), or incorrect entries.
+    * **Dropdowns:** While more controlled, dropdowns can still have issues if the predefined options are ambiguous, incomplete, or if users select the wrong option.
+* **Parsing Errors:** These happen when data is extracted, transformed, or loaded, and the system fails to correctly interpret or standardize the data. This might occur when data is imported from different sources with varying formats.
+
+### 3. How to Treat Data Quality Problems (Categories)
+
+Addressing issues in categorical data requires specific strategies to ensure consistency and usability.
+
+* **Dropping Data:**
+    * **Explanation:** This involves removing rows or records that contain erroneous or unfixable categorical values. This is a drastic measure and should be used cautiously to avoid losing valuable information, especially if the number of problematic entries is high.
+* **Remapping Categories:**
+    * **Explanation:** This strategy involves standardizing inconsistent categories by mapping multiple variations of a category to a single, canonical value (e.g., mapping "NY", "New York", "N.Y." all to "New York"). This is crucial for consistency.
+* **Inferring Categories:**
+    * **Explanation:** When categorical values are missing or unclear, it might be possible to infer the correct category based on other available data points or patterns in the dataset. This often involves using statistical methods or machine learning models to predict the most likely category.
+
+### 4. A Note on Joins
+
+Joins are fundamental operations in data manipulation, particularly when combining data from different sources. They are essential for enriching datasets and establishing relationships.
+
+* **Anti Joins:**
+    * **Explanation:** An Anti Join identifies records that are present in one dataset but *not* in another. It's used to find mismatches or unique entries.
+    * **Visual Representation:** If you have sets A and B, an Anti Join (A minus B) returns "What is in A and not in B."
+* **Inner Joins:**
+    * **Explanation:** An Inner Join combines rows from two datasets where there is a match in a specified common column(s). It returns only the records that exist in *both* datasets based on the matching condition.
+    * **Visual Representation:** If you have sets A and B, an Inner Join returns "What is in both A and B."
+
+### 5. Applying Joins: Examples with Blood Types
+
+Let's illustrate join types with an example of blood types in `study_data` and `categories` datasets.
+
+#### A Left Anti Join on Blood Types
+
+* **Concept:** "What is in `study_data` only."
+* **Example:** If `study_data` has blood types `A-`, `O-`, `AB+`, `A+`, `O+`, `B-`, and `Z+`, and `categories` has `A-`, `O-`, `AB+`, `A+`, `O+`, `B-`, `B+`, and `AB-`.
+* **Result:** A left anti-join on `study_data` would return only the rows containing `Z+`, as `Z+` is present in `study_data` but not in `categories`.
+
+#### An Inner Join on Blood Types
+
+* **Concept:** "What is in `study_data` and `categories` only."
+* **Example:** Using the same `study_data` and `categories` as above.
+* **Result:** An inner join would return all the blood types that are common to both datasets: `A-`, `O-`, `AB+`, `A+`, `O+`, `B-`. It effectively returns the intersection of the two sets, excluding elements unique to either.
+
+---
+
+## Versão em Português
+
+# Qualidade de Dados: Categorias, Problemas, Soluções e Junções
+
+Garantir alta qualidade de dados é primordial para análises confiáveis e aplicações robustas. Isso envolve a compreensão de tipos de dados comuns, a identificação de problemas potenciais decorrentes de entrada ou parsing de dados, a aplicação de estratégias de limpeza apropriadas e a combinação eficaz de conjuntos de dados usando várias operações de junção.
+
+---
+
+## Versão em Português
+
+### 1. Categorias e Restrições de Membro
+
+Dados categóricos envolvem valores que pertencem a um conjunto finito e predefinido de categorias. Essas categorias podem frequentemente ser representadas numericamente para facilitar o processamento, mantendo seu significado original.
+
+| Tipo de dados           | Valores de exemplo            | Representação numérica |
+| :---------------------- | :-------------------------- | :--------------------- |
+| **Estado Civil** | `solteiro`, `casado`        | `0`, `1`               |
+| **Categoria de Renda Familiar** | `0-20K`, `20-40K`, etc.     | `0`, `1`, etc.         |
+| **Status do Empréstimo**| `inadimplente`, `pago`, `sem_emprestimo` | `0`, `1`, `2`          |
+
+* **Explicação:** São exemplos onde categorias textuais são mapeadas para valores numéricos discretos. Essa prática é comum na preparação de dados, especialmente para modelos de aprendizado de máquina que preferem entradas numéricas. O ponto chave é que o conjunto de valores possíveis para essas categorias é finito e bem definido.
+
+### 2. Por que Problemas de Qualidade de Dados Surgem
+
+Problemas de qualidade de dados, particularmente em relação a dados categóricos, podem surgir de várias fontes:
+
+* **Erros de Entrada de Dados:** Ocorrem quando a entrada humana é inconsistente ou incorreta.
+    * **Texto livre:** Permite que os usuários digitem qualquer coisa, levando a erros de digitação, variações na grafia (ex: "RJ" vs. "Rio de Janeiro") ou entradas incorretas.
+    * **Listas suspensas (Dropdowns):** Embora mais controladas, as listas suspensas ainda podem apresentar problemas se as opções predefinidas forem ambíguas, incompletas ou se os usuários selecionarem a opção errada.
+* **Erros de Parsing (Análise Sintática):** Acontecem quando os dados são extraídos, transformados ou carregados, e o sistema falha em interpretar ou padronizar corretamente os dados. Isso pode ocorrer quando os dados são importados de diferentes fontes com formatos variados.
+
+### 3. Como Tratar Esses Problemas (Categorias)
+
+Abordar problemas em dados categóricos requer estratégias específicas para garantir consistência e usabilidade.
+
+* **Remoção de Dados (Dropping Data):**
+    * **Explicação:** Envolve a remoção de linhas ou registros que contêm valores categóricos errôneos ou incorrigíveis. Esta é uma medida drástica e deve ser usada com cautela para evitar a perda de informações valiosas, especialmente se o número de entradas problemáticas for alto.
+* **Remapeamento de Categorias (Remapping Categories):**
+    * **Explicação:** Essa estratégia envolve padronizar categorias inconsistentes, mapeando múltiplas variações de uma categoria para um único valor canônico (ex: mapear "RJ", "Rio", "Rio de J." tudo para "Rio de Janeiro"). Isso é crucial para a consistência.
+* **Inferência de Categorias (Inferring Categories):**
+    * **Explicação:** Quando os valores categóricos estão ausentes ou são pouco claros, pode ser possível inferir a categoria correta com base em outros pontos de dados disponíveis ou padrões no conjunto de dados. Isso frequentemente envolve o uso de métodos estatísticos ou modelos de aprendizado de máquina para prever a categoria mais provável.
+
+### 4. Uma Nota sobre Junções (Joins)
+
+Junções são operações fundamentais na manipulação de dados, particularmente ao combinar dados de diferentes fontes. Elas são essenciais para enriquecer conjuntos de dados e estabelecer relacionamentos.
+
+* **Anti Joins (Anti Junções):**
+    * **Explicação:** Uma Anti Junção identifica registros que estão presentes em um conjunto de dados, mas *não* em outro. É usada para encontrar incompatibilidades ou entradas únicas.
+    * **Representação Visual:** Se você tem os conjuntos A e B, uma Anti Junção (A menos B) retorna "O que está em A e não em B".
+* **Inner Joins (Junções Internas):**
+    * **Explicação:** Uma Junção Interna combina linhas de dois conjuntos de dados onde há uma correspondência em coluna(s) comum(ns) especificada(s). Ela retorna apenas os registros que existem em *ambos* os conjuntos de dados com base na condição de correspondência.
+    * **Representação Visual:** Se você tem os conjuntos A e B, uma Junção Interna retorna "O que está em A e em B".
+
+### 5. Aplicando Junções: Exemplos com Tipos Sanguíneos
+
+Vamos ilustrar os tipos de junção com um exemplo de tipos sanguíneos em conjuntos de dados `study_data` e `categories`.
+
+#### Uma Junção Anti Esquerda (Left Anti Join) em Tipos Sanguíneos
+
+* **Conceito:** "O que está *apenas* em `study_data`."
+* **Exemplo:** Se `study_data` tem tipos sanguíneos `A-`, `O-`, `AB+`, `A+`, `O+`, `B-` e `Z+`, e `categories` tem `A-`, `O-`, `AB+`, `A+`, `O+`, `B-`, `B+` e `AB-`.
+* **Resultado:** Uma junção anti esquerda em `study_data` retornaria apenas as linhas contendo `Z+`, pois `Z+` está presente em `study_data` mas não em `categories`.
+
+#### Uma Junção Interna (Inner Join) em Tipos Sanguíneos
+
+* **Conceito:** "O que está *tanto* em `study_data` *quanto* em `categories`."
+* **Exemplo:** Usando os mesmos `study_data` e `categories` acima.
+* **Resultado:** Uma junção interna retornaria todos os tipos sanguíneos que são comuns a ambos os conjuntos de dados: `A-`, `O-`, `AB+`, `A+`, `O+`, `B-`. Ela efetivamente retorna a interseção dos dois conjuntos, excluindo elementos únicos de um ou de outro.
