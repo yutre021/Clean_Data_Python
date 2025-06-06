@@ -621,3 +621,15 @@ print("\nDataFrame Consolidado:\n", consolidated_df)
 ```
 
 * Neste exemplo, se o cliente 1 pediu o item A duas vezes, groupby().agg() permite criar uma única entrada para "cliente 1, item A" com a quantidade total e o preço médio, tratando efetivamente as entradas duplicadas ao resumi-las. Essa abordagem é poderosa para manter a integridade dos dados, ao mesmo tempo que resolve a redundância, derivando registros consolidados significativos.
+
+
+```python
+# Find duplicates
+duplicates = ride_sharing.duplicated(subset='ride_id', keep=False)
+
+# Sort your duplicated rides
+duplicated_rides = ride_sharing[duplicates].sort_values('ride_id')
+
+# Print relevant columns of duplicated_rides
+print(duplicated_rides[['ride_id', 'duration', 'user_birth_year']])
+```
