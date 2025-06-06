@@ -1517,3 +1517,64 @@ banking_imputed = banking_fullid.fillna({'acct_amount': acct_imp})
 # Print number of missing values
 print(banking_imputed.isna().sum())
 ```
+
+
+# Minimum Edit Distance Algorithms (Algoritmos de Distância de Edição Mínima)
+
+Minimum edit distance algorithms are fundamental in data cleaning and text analysis for quantifying the dissimilarity between two strings. They calculate the minimum number of single-character edits (insertions, deletions, substitutions, and sometimes transpositions) required to change one word into the other. Different algorithms consider different sets of allowed operations, impacting their utility for specific tasks like spell checking, fuzzy matching, or DNA sequence alignment.
+
+---
+
+## English Version
+
+### Understanding Edit Distance Algorithms and Their Operations
+
+These algorithms are crucial for tasks where variations in text data (e.g., typos, formatting inconsistencies) need to be measured or corrected.
+
+1.  **Damerau-Levenshtein Algorithm**
+    * **Operations:** Insertion, substitution, deletion, transposition.
+    * **Explanation:** This is a more comprehensive edit distance algorithm. It counts the number of operations required to transform one string into another, including not only insertions (adding a character), substitutions (changing a character), and deletions (removing a character), but also **transpositions** (swapping two adjacent characters). This makes it particularly effective for detecting and correcting adjacent character swaps, which are common typos.
+
+2.  **Levenshtein Algorithm**
+    * **Operations:** Insertion, substitution, deletion.
+    * **Explanation:** Often referred to simply as "edit distance," the Levenshtein algorithm calculates the minimum number of single-character edits required to change one word into the other, limited to insertions, substitutions, and deletions. It's widely used in spell checkers and DNA analysis.
+
+3.  **Hamming Algorithm**
+    * **Operations:** Substitution only.
+    * **Explanation:** The Hamming distance is a specialized edit distance algorithm that only applies to strings of **equal length**. It calculates the number of positions at which the corresponding characters are different. It's strictly limited to substitutions; insertions or deletions are not considered, making it suitable for comparing fixed-length codes or sequences.
+
+4.  **Jaro Distance**
+    * **Operations:** Transposition only.
+    * **Explanation:** The Jaro distance is a string edit distance metric that measures the similarity between two strings, specifically focusing on transpositions (characters that are a match but in a different order). It's a similarity score (higher is more similar), not a direct count of operations. It is often used in record linkage and duplicate detection, particularly where there are minor reorderings.
+
+---
+
+## Versão em Português
+
+# Algoritmos de Distância de Edição Mínima
+
+Algoritmos de distância de edição mínima são fundamentais na limpeza e análise de texto para quantificar a dissimilaridade entre duas strings. Eles calculam o número mínimo de edições de um único caractere (inserções, substituições, exclusões e, às vezes, transposições) necessárias para transformar uma palavra na outra. Diferentes algoritmos consideram diferentes conjuntos de operações permitidas, impactando sua utilidade para tarefas específicas, como verificação ortográfica, correspondência aproximada ou alinhamento de sequências de DNA.
+
+---
+
+## Versão em Português
+
+### Compreendendo os Algoritmos de Distância de Edição e Suas Operações
+
+Esses algoritmos são cruciais para tarefas onde variações em dados de texto (ex: erros de digitação, inconsistências de formatação) precisam ser medidas ou corrigidas.
+
+1.  **Algoritmo Damerau-Levenshtein**
+    * **Operações:** Inserção, substituição, exclusão, transposição.
+    * **Explicação:** Este é um algoritmo de distância de edição mais abrangente. Ele conta o número de operações necessárias para transformar uma string em outra, incluindo não apenas inserções (adicionar um caractere), substituições (alterar um caractere) e exclusões (remover um caractere), mas também **transposições** (trocar dois caracteres adjacentes). Isso o torna particularmente eficaz para detectar e corrigir trocas de caracteres adjacentes, que são erros de digitação comuns.
+
+2.  **Algoritmo Levenshtein**
+    * **Operações:** Inserção, substituição, exclusão.
+    * **Explicação:** Frequentemente referido simplesmente como "distância de edição", o algoritmo de Levenshtein calcula o número mínimo de edições de um único caractere necessárias para transformar uma palavra na outra, limitado a inserções, substituições e exclusões. É amplamente utilizado em verificadores ortográficos e análise de DNA.
+
+3.  **Algoritmo Hamming**
+    * **Operações:** Apenas substituição.
+    * **Explicação:** A distância de Hamming é um algoritmo de distância de edição especializado que se aplica apenas a strings de **comprimento igual**. Ele calcula o número de posições em que os caracteres correspondentes são diferentes. É estritamente limitado a substituições; inserções ou exclusões não são consideradas, tornando-o adequado para comparar códigos ou sequências de comprimento fixo.
+
+4.  **Distância Jaro**
+    * **Operações:** Apenas transposição.
+    * **Explicação:** A distância Jaro é uma métrica de distância de edição de string que mede a similaridade entre duas strings, focando especificamente em transposições (caracteres que correspondem, mas estão em uma ordem diferente). É uma pontuação de similaridade (maior é mais semelhante), não uma contagem direta de operações. É frequentemente usada em vinculação de registros e detecção de duplicatas, particularmente onde há pequenas reordenações.
