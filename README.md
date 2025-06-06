@@ -955,3 +955,70 @@ mappings = {'Monday':'weekday', 'Tuesday':'weekday', 'Wednesday': 'weekday',
 
 airlines['day_week'] = airlines['day'].replace(mappings)
 ```
+
+
+# Cleaning Text Data with Regular Expressions in Python (Limpeza de Dados de Texto com Expressões Regulares em Python)
+
+Text data is a ubiquitous and valuable source of information, but it often arrives in messy, inconsistent, or unstructured formats. Cleaning text data is a crucial step in any data pipeline, ensuring its quality and usability for analysis, machine learning, or reporting. Regular expressions are an indispensable tool in a data professional's toolkit for this purpose, allowing for powerful pattern matching and manipulation.
+
+---
+
+## English Version
+
+### Why Clean Text Data?
+
+Text data can contain a wide array of inconsistencies, such as varying capitalization, leading/trailing whitespace, special characters, typos, or embedded patterns (like dates, emails, or phone numbers) that need extraction or standardization. Uncleaned text can lead to inaccurate analyses, incorrect grouping, and poor performance of machine learning models.
+
+### Regular Expressions in Action for Text Cleaning
+
+**Regular expressions (regex or regexps)** are sequences of characters that define a search pattern. When applied to text data, they can perform highly flexible and complex string operations.
+
+* **Pattern Matching:** Regex allows you to define specific patterns to find in text. For example, you can identify all email addresses, phone numbers, or dates within a free-text field, regardless of minor variations in format.
+* **Finding and Replacing:** Beyond just finding, regex enables you to replace matched patterns with other strings. This is incredibly useful for standardizing formats (e.g., ensuring all phone numbers look the same), removing unwanted characters (e.g., punctuation, emojis), or anonymizing sensitive information.
+* **Extracting Information:** You can use regex to extract specific pieces of information that follow a pattern from unstructured text, turning messy strings into structured data (e.g., extracting a city name from a full address string).
+
+### Regular Expressions in Python
+
+Python's built-in `re` module provides full support for regular expressions. Additionally, when working with tabular data using the Pandas library, string methods (accessed via the `.str` accessor) can often take regular expressions as arguments, combining Pandas' efficiency with regex's power.
+
+Common tasks include:
+* Using `re.sub()` or `Series.str.replace()` with a regex pattern to substitute matched occurrences.
+* Using `re.findall()` or `Series.str.findall()` to extract all non-overlapping matches of a pattern.
+* Using `re.match()` or `re.search()` for pattern validation or initial match finding.
+
+By mastering regular expressions, data professionals gain fine-grained control over text data, enabling robust and efficient cleaning necessary for high-quality data analysis.
+
+---
+
+## Versão em Português
+
+# Limpeza de Dados de Texto com Expressões Regulares em Python
+
+Dados de texto são uma fonte de informação ubíqua e valiosa, mas frequentemente chegam em formatos bagunçados, inconsistentes ou não estruturados. Limpar dados de texto é uma etapa crucial em qualquer pipeline de dados, garantindo sua qualidade e usabilidade para análise, aprendizado de máquina ou relatórios. Expressões regulares são uma ferramenta indispensável no conjunto de ferramentas de um profissional de dados para esse fim, permitindo poderosas operações de correspondência e manipulação de strings.
+
+---
+
+## Versão em Português
+
+### Por que Limpar Dados de Texto?
+
+Dados de texto podem conter uma ampla gama de inconsistências, como variação de maiúsculas/minúsculas, espaços em branco à esquerda/direita, caracteres especiais, erros de digitação ou padrões incorporados (como datas, e-mails ou números de telefone) que precisam de extração ou padronização. Texto não limpo pode levar a análises imprecisas, agrupamento incorreto e baixo desempenho de modelos de aprendizado de máquina.
+
+### Expressões Regulares em Ação para Limpeza de Texto
+
+**Expressões regulares (regex ou regexps)** são sequências de caracteres que definem um padrão de busca. Quando aplicadas a dados de texto, elas podem realizar operações de string altamente flexíveis e complexas.
+
+* **Correspondência de Padrões:** Regex permite definir padrões específicos para encontrar no texto. Por exemplo, você pode identificar todos os endereços de e-mail, números de telefone ou datas dentro de um campo de texto livre, independentemente de pequenas variações de formato.
+* **Encontrar e Substituir:** Além de apenas encontrar, regex permite substituir padrões correspondentes por outras strings. Isso é incrivelmente útil para padronizar formatos (ex: garantir que todos os números de telefone tenham o mesmo formato), remover caracteres indesejados (ex: pontuação, emojis) ou anonimizar informações sensíveis.
+* **Extrair Informações:** Você pode usar regex para extrair partes específicas de informações que seguem um padrão de texto não estruturado, transformando strings bagunçadas em dados estruturados (ex: extrair o nome de uma cidade de uma string de endereço completa).
+
+### Expressões Regulares em Python
+
+O módulo `re` integrado do Python oferece suporte completo para expressões regulares. Além disso, ao trabalhar com dados tabulares usando a biblioteca Pandas, os métodos de string (acessíveis via o acessor `.str`) podem frequentemente aceitar expressões regulares como argumentos, combinando a eficiência do Pandas com o poder do regex.
+
+Tarefas comuns incluem:
+* Usar `re.sub()` ou `Series.str.replace()` com um padrão regex para substituir ocorrências correspondentes.
+* Usar `re.findall()` ou `Series.str.findall()` para extrair todas as correspondências não sobrepostas de um padrão.
+* Usar `re.match()` ou `re.search()` para validação de padrões ou busca inicial de correspondências.
+
+Ao dominar as expressões regulares, os profissionais de dados obtêm controle granular sobre os dados de texto, possibilitando a limpeza robusta e eficiente necessária para análises de dados de alta qualidade.
