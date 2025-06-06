@@ -1311,3 +1311,17 @@ Essas operações ou verificações se concentram principalmente em campos ou pr
     * **Explicação:** Esta é uma validação de intervalo ou temporal aplicada a uma única coluna. Você está verificando se os valores dentro da própria coluna `subscription_date` caem dentro de um intervalo temporal válido (ou seja, não no futuro). Isso não exige a verificação contra outro campo na mesma linha.
 * **Certificar-se de que uma coluna `revenue` seja uma coluna numérica.**
     * **Explanation:** Esta é uma validação de tipo de dado realizada em uma única coluna. A verificação é para garantir que os valores na coluna `revenue` possam ser interpretados como números, permitindo operações aritméticas. Não envolve a comparação de `revenue` com nenhum outro campo para determinar sua validade.
+
+
+# Store fund columns to sum against
+fund_columns = ['fund_A', 'fund_B', 'fund_C', 'fund_D']
+
+# Find rows where fund_columns row sum == inv_amount
+inv_equ = banking[fund_columns].sum(axis=1) == banking['inv_amount']
+
+# Store consistent and inconsistent data
+consistent_inv = banking[inv_equ]
+inconsistent_inv = banking[~inv_equ]
+
+# Store consistent and inconsistent data
+print("Number of inconsistent investments: ", inconsistent_inv.shape[0])
