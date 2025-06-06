@@ -360,3 +360,17 @@ Ao encontrar pontos de dados que estão fora de um intervalo plausível ou defin
     * **Explicação:** Valores fora do intervalo podem ser tratados como se fossem dados ausentes. Uma vez marcados como ausentes, técnicas de imputação podem ser aplicadas. A imputação envolve estimar e preencher os valores ausentes com base em outras características dos dados (ex: usando a média, mediana, moda, ou modelos de aprendizado de máquina mais sofisticados para prever o valor ausente). Este método visa manter o registro enquanto fornece um substituto razoável para o valor errôneo.
 
 A escolha entre esses métodos depende de fatores como o volume de dados fora do intervalo, sua causa suspeita (ex: erro de entrada de dados, mau funcionamento do sensor, outlier legítimo, mas extremo) e o impacto de cada método na análise subsequente ou no desempenho do modelo.
+
+
+```python
+import pandas as pd
+# Output Movies with rating > 5
+movies[movies['avg_rating'] > 5]
+
+# Drop values using filtering
+movies = movies[movies['avg_rating'] <= 5]
+# Drop values using .drop()
+movies.drop(movies[movies['avg_rating'] > 5].index, inplace = True)
+# Assert results
+assert movies['avg_rating'].max() <= 5
+```
