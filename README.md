@@ -1617,3 +1617,16 @@ for cuisine in categories:
 # Inspect the final result
 print(restaurants['cuisine_type'].unique())
 ```
+
+
+### Generate Pairs
+
+```python
+# Import recordlinkage
+import recordlinkage
+# Create indexing object
+indexer = recordlinkage.Index()
+# Generate pairs blocked on state
+indexer.block('state')
+pairs = indexer.index(census_A, census_B)
+```
