@@ -864,3 +864,13 @@ Esta categoria engloba vários outros problemas comuns de qualidade de dados que
     * **Explicação:** Esta é uma restrição de intervalo. Embora a idade seja um valor numérico, uma idade humana de 138 anos é biologicamente impossível e fora do intervalo plausível para esse tipo de dado. Tais valores são tipicamente erros de entrada de dados ou outliers que precisam ser corrigidos.
 * **Uma coluna `birthdate` com valores no futuro.**
     * **Explanation:** Esta é uma restrição temporal. Uma data de nascimento, por definição, deve ser no passado ou no presente. Uma data no futuro para uma data de nascimento é logicamente impossível e indica um erro de entrada de dados ou de parsing.
+
+```python
+# Print categories DataFrame
+print(categories)
+
+# Print unique values of survey columns in airlines
+print('Cleanliness: ', airlines['cleanliness'].unique(), "\n")
+print('Safety: ', airlines['safety'].unique(), "\n")
+print('Satisfaction: ', airlines['satisfaction'].unique(), "\n")
+```
