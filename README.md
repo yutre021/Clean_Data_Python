@@ -1126,3 +1126,16 @@ Ao investigar a origem e a dinâmica dos dados, você pode:
 * Potencialmente entrar em contato com os proprietários dos dados para esclarecimentos sobre entradas ambíguas específicas, se um padrão não puder ser deduzido.
 
 Em última análise, todas as opções técnicas possíveis para a análise de datas (ex: usar `pd.to_datetime` com `dayfirst=True/False` ou strings de formato personalizadas no Pandas) tornam-se viáveis *somente após* um entendimento claro do formato verdadeiro dos dados ser estabelecido por meio de investigação. Isso garante que os dados limpos reflitam com precisão os eventos do mundo real.
+
+
+# Find values of acct_cur that are equal to 'euro'
+acct_eu = banking['acct_cur'] == 'euro'
+
+# Convert acct_amount where it is in euro to dollars
+banking.loc[acct_eu, 'acct_amount'] = banking.loc[acct_eu, 'acct_amount'] * 1.1
+
+# Unify acct_cur column by changing 'euro' values to 'dollar'
+banking.loc[acct_eu, 'acct_cur'] = 'dollar'
+
+# Assert that only dollar currency remains
+assert banking['acct_cur'].unique() == 'dollar'
