@@ -1578,3 +1578,12 @@ Esses algoritmos são cruciais para tarefas onde variações em dados de texto (
 4.  **Distância Jaro**
     * **Operações:** Apenas transposição.
     * **Explicação:** A distância Jaro é uma métrica de distância de edição de string que mede a similaridade entre duas strings, focando especificamente em transposições (caracteres que correspondem, mas estão em uma ordem diferente). É uma pontuação de similaridade (maior é mais semelhante), não uma contagem direta de operações. É frequentemente usada em vinculação de registros e detecção de duplicatas, particularmente onde há pequenas reordenações.
+
+
+```python
+# Create a list of matches, comparing 'italian' with the cuisine_type column
+matches = process.extract('italian', restaurants['cuisine_type'], limit=len(restaurants.cuisine_type))
+
+# Inspect the first 5 matches
+print(matches[0:5])
+```
