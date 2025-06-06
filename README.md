@@ -1347,30 +1347,70 @@ inconsistent_ages = banking[~age_equ]
 print("Number of inconsistent ages: ", inconsistent_ages.shape[0])
 ```
 
+# Data Validation: Cross-Field vs. Single-Field (Validação de Dados: Entre Campos vs. Campo Único)
 
-# Understanding Missing Data: Not at Random (Compreendendo Dados Ausentes: Não Aleatórios)
-
-When dealing with missing data, it's crucial to understand the patterns behind it, as this impacts how you approach data imputation and analysis. There are generally three types of missingness: Missing Completely at Random (MCAR), Missing at Random (MAR), and Missing Not at Random (MNAR). This document focuses on "Missing Not at Random," a particularly challenging type of missingness.
+Data cleaning involves various types of validation to ensure data integrity. Cross-field validation checks relationships and consistency *between* different fields, ensuring logical coherence. In contrast, other validation types focus on individual fields or properties without needing to reference other columns. This document clarifies these distinctions, which are vital for maintaining robust data quality.
 
 ---
 
 ## English Version
 
-### Missing Not at Random (MNAR)
+### Understanding Data Validation: Cross-Field vs. Single-Field
 
-**Missing Not at Random (MNAR): There is a systematic relationship between the missing values of a column and the *unobserved* values.**
+Data validation ensures the accuracy, consistency, and reliability of data. It can be performed at different levels of granularity.
 
-* **Explanation:** This is the most complex type of missing data. MNAR occurs when the reason for a value being missing is directly related to the value itself, even if that value is unobserved. In other words, the missingness pattern is not random and depends on the actual (but unrecorded) data.
+#### 1. Cross-Field Validation
 
-* **Implications for Analysis:** When data is MNAR, simply ignoring the missing values or imputing them based on observed data can lead to biased and inaccurate conclusions. The missingness itself carries important information that is lost if not properly accounted for. Special statistical techniques are often required to handle MNAR data, or assumptions about the missingness mechanism need to be made.
+Cross-field validation involves checking the logical consistency and relationships between two or more different fields within the same record. It's about ensuring that data makes sense when considered together.
 
-* **Hypothetical Example with Customer Satisfaction Index:**
-    Consider a DataFrame containing customer satisfaction indices for a service. If the `satisfaction_score` column is missing values *specifically for customers who are extremely dissatisfied and chose not to fill out the survey* (because they were too upset or apathetic to respond), then this is MNAR. The fact that the score is missing is directly related to the (unobserved) low satisfaction score itself. If you only analyze the observed scores, you would likely overestimate the average customer satisfaction, as the lowest scores are systematically underrepresented. The missingness provides a clue about the true underlying dissatisfaction.
+* **Confirmation of age provided by users through cross-checking their birth dates.**
+    * **Explanation:** This is a classic example of cross-field validation. You compare the `age` field with a `birth_date` field. The `age` should be consistent with the `birth_date` and the current date. This requires checking two distinct fields against each other.
+* **Row-wise operations, such as `.sum(axis = 1)`.**
+    * **Explanation:** This refers to operations performed horizontally across a DataFrame's rows, often involving calculations that aggregate values from multiple columns for each record. While not a direct "validation" in the sense of checking against external rules, performing calculations across fields (like summing values from `column_A` and `column_B` to check against `column_C`) implicitly involves looking at the relationships between different fields on a row-by-row basis. For validation, you'd check if the sum adheres to a rule.
+
+#### 2. No Cross-Field Validation
+
+These operations or checks primarily focus on individual fields or properties in isolation, without directly referencing other columns in the same record for validation.
+
+* **The use of the `.astype()` method.**
+    * **Explanation:** The `.astype()` method in Pandas is used to convert a column to a specific data type (e.g., converting a column of strings to integers or dates). This is a single-field operation focused on data type enforcement, not on checking relationships between fields.
+* **Ensuring that a `subscription_date` column does not have values defined in the future.**
+    * **Explanation:** This is a range or temporal validation applied to a single column. You're checking if the values within the `subscription_date` column itself fall within a valid temporal range (i.e., not in the future). This doesn't require checking against another field in the same row.
+* **Making sure that a `revenue` column is a numeric column.**
+    * **Explanation:** This is a data type validation performed on a single column. The check is to ensure that the values in the `revenue` column can be interpreted as numbers, allowing for arithmetic operations. It doesn't involve comparing `revenue` to any other field to determine its validity.
 
 ---
 
 ## Versão em Português
 
-# Compreendendo Dados Ausentes: Não Aleatórios
+# Validação de Dados: Entre Campos vs. Campo Único
 
-Ao lidar com dados ausentes, é crucial entender os padrões por trás deles, pois isso afeta a forma como você aborda a imputação e a análise de dados. Geralmente, existem três tipos de ausência: Ausência Completamente Aleatória
+A limpeza de dados envolve vários tipos de validação para garantir a integridade dos dados. A validação entre campos verifica as relações e a consistência *entre* diferentes campos, garantindo a coerência lógica. Em contraste, outros tipos de validação se concentram em campos ou propriedades individuais isoladamente, sem a necessidade de referenciar outras colunas. Este documento esclarece essas distinções, que são vitais para manter uma qualidade de dados robusta.
+
+---
+
+## Versão em Português
+
+### Compreendendo a Validação de Dados: Entre Campos vs. Campo Único
+
+A validação de dados garante a precisão, consistência e confiabilidade dos dados. Ela pode ser realizada em diferentes níveis de granularidade.
+
+#### 1. Validação entre Campos
+
+A validação entre campos envolve a verificação da consistência lógica e dos relacionamentos entre dois ou mais campos diferentes dentro do mesmo registro. Trata-se de garantir que os dados façam sentido quando considerados em conjunto.
+
+* **Confirmação da idade fornecida pelos usuários por meio da verificação cruzada de suas datas de nascimento.**
+    * **Explicação:** Este é um exemplo clássico de validação entre campos. Você compara o campo `idade` com o campo `data_de_nascimento`. A `idade` deve ser consistente com a `data_de_nascimento` e a data atual. Isso exige a verificação de dois campos distintos um contra o outro.
+* **Operações por linha, como `.sum(axis = 1)`.**
+    * **Explicação:** Refere-se a operações realizadas horizontalmente nas linhas de um DataFrame, frequentemente envolvendo cálculos que agregam valores de múltiplas colunas para cada registro. Embora não seja uma "validação" direta no sentido de verificar contra regras externas, realizar cálculos entre campos (como somar valores da `coluna_A` e `coluna_B` para verificar contra a `coluna_C`) implica implicitamente em olhar para os relacionamentos entre diferentes campos linha por linha. Para validação, você verificaria se a soma adere a uma regra.
+
+#### 2. Não Há Validação entre Campos
+
+Essas operações ou verificações se concentram principalmente em campos ou propriedades individuais de forma isolada, sem referenciar diretamente outras colunas no mesmo registro para validação.
+
+* **O uso do método `.astype()`.**
+    * **Explicação:** O método `.astype()` no Pandas é usado para converter uma coluna para um tipo de dado específico (ex: converter uma coluna de strings para inteiros ou datas). Esta é uma operação de campo único focada na imposição de tipo de dado, não na verificação de relacionamentos entre campos.
+* **Garantir que uma coluna `subscription_date` não tenha valores definidos no futuro.**
+    * **Explicação:** Esta é uma validação de intervalo ou temporal aplicada a uma única coluna. Você está verificando se os valores dentro da própria coluna `subscription_date` caem dentro de um intervalo temporal válido (ou seja, não no futuro). Isso não exige a verificação contra outro campo na mesma linha.
+* **Certificar-se de que uma coluna `revenue` seja uma coluna numérica.**
+    * **Explanation:** Esta é uma validação de tipo de dado realizada em uma única coluna. A verificação é para garantir que os valores na coluna `revenue` possam ser interpretados como números, permitindo operações aritméticas. Não envolve a comparação de `revenue` com nenhum outro campo para determinar sua validade.
