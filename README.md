@@ -519,3 +519,105 @@ A flexibilidade do parâmetro `keep` permite diferentes estratégias no tratamen
 column_names = ['first_name','last_name','address']
 duplicates = height_weight.duplicated(subset = column_names, keep = False)
 ```
+
+
+# Treating Duplicate Values with Grouping and Aggregation (Tratando Valores Duplicados com Agrupamento e Agregação)
+
+After identifying duplicate rows or values in a dataset, the next step in data cleaning is often to decide how to treat them. Instead of simply removing duplicates, which might lead to loss of valuable information, you might want to summarize or aggregate them. In data manipulation, particularly with libraries like Pandas in Python, the `.groupby()` and `.agg()` methods are powerful tools for consolidating duplicate information.
+
+---
+
+## English Version
+
+### Consolidating Duplicates with `.groupby()` and `.agg()`
+
+The `.groupby()` method allows you to group rows based on one or more column values, effectively bringing together all rows that share the same characteristics (which often include duplicates). Once grouped, the `.agg()` (aggregate) method is used to apply one or more functions to the groups, summarizing the data.
+
+#### How it works:
+
+1.  **`.groupby()` Method:**
+    * **Purpose:** This method is used to split the DataFrame into groups based on some criterion. When dealing with duplicates, you would typically group by the columns that define the duplicate rows.
+    * **Mechanism:** It creates a `GroupBy` object, which is an intermediate structure. It doesn't immediately perform any calculations but sets up the framework for applying aggregate functions.
+
+2.  **`.agg()` Method:**
+    * **Purpose:** This method is used to apply one or more aggregation functions (like `sum()`, `mean()`, `count()`, `first()`, `last()`, `min()`, `max()`, etc.) to the grouped data.
+    * **Mechanism:** After grouping, `.agg()` computes a single result for each group, effectively consolidating the duplicate rows into a single, summarized row.
+
+#### Example Scenario:
+
+Imagine you have a DataFrame with duplicate entries for customer orders, but you want to consolidate them into a single record per customer, summing up quantities, for instance.
+
+```python
+import pandas as pd
+
+data = {
+    'customer_id': [1, 1, 2, 2, 3],
+    'item': ['A', 'A', 'B', 'C', 'A'],
+    'quantity': [10, 5, 20, 15, 8],
+    'price': [100, 100, 50, 75, 120]
+}
+df = pd.DataFrame(data)
+print("Original DataFrame:\n", df)
+
+# Group by customer_id and item to consolidate duplicate entries, then sum quantities
+# This effectively 'treats' duplicates by summarizing their numerical aspects
+consolidated_df = df.groupby(['customer_id', 'item']).agg(
+    total_quantity=('quantity', 'sum'),
+    average_price=('price', 'mean'),
+    num_entries=('customer_id', 'count') # Count how many original entries contributed to this consolidated row
+).reset_index() # reset_index turns the groupby keys back into columns
+
+print("\nConsolidated DataFrame:\n", consolidated_df)
+```
+
+- In this example, if customer 1 ordered item A twice, *groupby()* *.agg()* allows you to create a single entry for "customer 1, item A" with the total quantity and average price, effectively treating the duplicate entries by summarizing them. This approach is powerful for maintaining data integrity while resolving redundancy by deriving meaningful consolidated records.
+
+
+
+### Versão em Português
+
+### Tratando Valores Duplicados com Agrupamento e Agregação
+* Após identificar linhas ou valores duplicados em um conjunto de dados, a próxima etapa na limpeza de dados é frequentemente decidir como tratá-los. Em vez de simplesmente remover duplicatas, o que pode levar à perda de informações valiosas, você pode querer resumi-las ou agregá-las. Na manipulação de dados, particularmente com bibliotecas como Pandas em Python, os métodos .groupby() e .agg() são ferramentas poderosas para consolidar informações duplicadas.
+
+### Versão em Português
+- Consolidando Duplicatas com .groupby() e .agg()
+- O método .groupby() permite agrupar linhas com base em um ou mais valores de coluna, reunindo efetivamente todas as linhas que compartilham as mesmas características (que frequentemente incluem duplicatas). Uma vez agrupado, o método .agg() (agregar) é usado para aplicar uma ou mais funções aos grupos, resumindo os dados.
+
+### Como funciona:
+* Método **.groupby()**:
+
+- Propósito: Este método é usado para dividir o DataFrame em grupos com base em algum critério. Ao lidar com duplicatas, você normalmente agruparia pelas colunas que definem as linhas duplicadas.
+- Mecanismo: Ele cria um objeto GroupBy, que é uma estrutura intermediária. Não realiza imediatamente nenhum cálculo, mas configura a estrutura para aplicar funções de agregação.
+
+* Método .agg():
+
+- Propósito: Este método é usado para aplicar uma ou mais funções de agregação (como sum(), mean(), count(), first(), last(), min(), max(), etc.) aos dados agrupados.
+- Mecanismo: Após o agrupamento, .agg() calcula um único resultado para cada grupo, consolidando efetivamente as linhas duplicadas em uma única linha resumida.
+- Cenário de Exemplo:
+- Imagine que você tem um DataFrame com entradas duplicadas para pedidos de clientes, mas deseja consolidá-las em um único registro por cliente, somando as quantidades, por exemplo.
+
+
+```python
+import pandas as pd
+
+data = {
+    'customer_id': [1, 1, 2, 2, 3],
+    'item': ['A', 'A', 'B', 'C', 'A'],
+    'quantity': [10, 5, 20, 15, 8],
+    'price': [100, 100, 50, 75, 120]
+}
+df = pd.DataFrame(data)
+print("DataFrame Original:\n", df)
+
+# Agrupa por customer_id e item para consolidar entradas duplicadas, então soma as quantidades
+# Isso efetivamente 'trata' as duplicatas resumindo seus aspectos numéricos
+consolidated_df = df.groupby(['customer_id', 'item']).agg(
+    total_quantity=('quantity', 'sum'),
+    average_price=('price', 'mean'),
+    num_entries=('customer_id', 'count') # Conta quantas entradas originais contribuíram para esta linha consolidada
+).reset_index() # reset_index transforma as chaves de agrupamento de volta em colunas
+
+print("\nDataFrame Consolidado:\n", consolidated_df)
+```
+
+* Neste exemplo, se o cliente 1 pediu o item A duas vezes, groupby().agg() permite criar uma única entrada para "cliente 1, item A" com a quantidade total e o preço médio, tratando efetivamente as entradas duplicadas ao resumi-las. Essa abordagem é poderosa para manter a integridade dos dados, ao mesmo tempo que resolve a redundância, derivando registros consolidados significativos.
