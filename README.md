@@ -1414,3 +1414,46 @@ Essas operações ou verificações se concentram principalmente em campos ou pr
     * **Explicação:** Esta é uma validação de intervalo ou temporal aplicada a uma única coluna. Você está verificando se os valores dentro da própria coluna `subscription_date` caem dentro de um intervalo temporal válido (ou seja, não no futuro). Isso não exige a verificação contra outro campo na mesma linha.
 * **Certificar-se de que uma coluna `revenue` seja uma coluna numérica.**
     * **Explanation:** Esta é uma validação de tipo de dado realizada em uma única coluna. A verificação é para garantir que os valores na coluna `revenue` possam ser interpretados como números, permitindo operações aritméticas. Não envolve a comparação de `revenue` com nenhum outro campo para determinar sua validade.
+
+
+# Understanding Missing Data: Not at Random (Compreendendo Dados Ausentes: Não Aleatórios)
+
+When dealing with missing data, it's crucial to understand the patterns behind it, as this impacts how you approach data imputation and analysis. There are generally three types of missingness: Missing Completely at Random (MCAR), Missing at Random (MAR), and Missing Not at Random (MNAR). This document focuses on "Missing Not at Random," a particularly challenging type of missingness.
+
+---
+
+## English Version
+
+### Missing Not at Random (MNAR)
+
+**Missing Not at Random (MNAR): There is a systematic relationship between the missing values of a column and the *unobserved* values.**
+
+* **Explanation:** This is the most complex type of missing data. MNAR occurs when the reason for a value being missing is directly related to the value itself, even if that value is unobserved. In other words, the missingness pattern is not random and depends on the actual (but unrecorded) data.
+
+* **Implications for Analysis:** When data is MNAR, simply ignoring the missing values or imputing them based on observed data can lead to biased and inaccurate conclusions. The missingness itself carries important information that is lost if not properly accounted for. Special statistical techniques are often required to handle MNAR data, or assumptions about the missingness mechanism need to be made.
+
+* **Hypothetical Example with Customer Satisfaction Index:**
+    Consider a DataFrame containing customer satisfaction indices for a service. If the `satisfaction_score` column is missing values *specifically for customers who are extremely dissatisfied and chose not to fill out the survey* (because they were too upset or apathetic to respond), then this is MNAR. The fact that the score is missing is directly related to the (unobserved) low satisfaction score itself. If you only analyze the observed scores, you would likely overestimate the average customer satisfaction, as the lowest scores are systematically underrepresented. The missingness provides a clue about the true underlying dissatisfaction.
+
+---
+
+## Versão em Português
+
+# Compreendendo Dados Ausentes: Não Aleatórios
+
+Ao lidar com dados ausentes, é crucial entender os padrões por trás deles, pois isso afeta a forma como você aborda a imputação e a análise de dados. Geralmente, existem três tipos de ausência: Ausência Completamente Aleatória (MCAR), Ausência Aleatória (MAR) e Ausência Não Aleatória (MNAR). Este documento foca na "Ausência Não Aleatória", um tipo particularmente desafiador de dados ausentes.
+
+---
+
+## Versão em Português
+
+### Ausência Não Aleatória (MNAR)
+
+**Ausência Não Aleatória (MNAR): Há uma relação sistemática entre os valores ausentes de uma coluna e os valores *não observados*.**
+
+* **Explicação:** Este é o tipo mais complexo de dados ausentes. MNAR ocorre quando o motivo de um valor estar ausente está diretamente relacionado ao próprio valor, mesmo que esse valor não seja observado. Em outras palavras, o padrão de ausência não é aleatório e depende dos dados reais (mas não registrados).
+
+* **Implicações para Análise:** Quando os dados são MNAR, simplesmente ignorar os valores ausentes ou imputá-los com base nos dados observados pode levar a conclusões tendenciosas e imprecisas. A própria ausência carrega informações importantes que são perdidas se não forem adequadamente consideradas. Técnicas estatísticas especiais são frequentemente necessárias para lidar com dados MNAR, ou suposições sobre o mecanismo de ausência precisam ser feitas.
+
+* **Exemplo Hipotético com Índice de Satisfação do Cliente:**
+    Considere um DataFrame contendo índices de satisfação do cliente para um serviço. Se a coluna `satisfaction_score` (pontuação_de_satisfação) está com valores ausentes *especificamente para clientes que estão extremamente insatisfeitos e optaram por não preencher a pesquisa* (porque estavam muito chateados ou apáticos para responder), então isso é MNAR. O fato de a pontuação estar ausente está diretamente relacionado à própria pontuação de satisfação (não observada). Se você analisar apenas as pontuações observadas, provavelmente superestimaria a satisfação média do cliente, pois as pontuações mais baixas estão sistematicamente sub-representadas. A ausência fornece uma pista sobre a verdadeira insatisfação subjacente.
