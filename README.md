@@ -902,3 +902,10 @@ print(airlines[cat_clean_rows])
 # Print rows with consistent categories only
 print(airlines[~cat_clean_rows])
 ```
+
+
+```python
+# Print unique values of both columns
+print(airlines['dest_region'].unique())
+print(airlines['dest_size'].unique())
+```
