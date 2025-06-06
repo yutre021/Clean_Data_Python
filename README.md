@@ -1648,3 +1648,65 @@ compare_cl.string('address_1', 'address_1', threshold=0.85, label='address_1')
 # Find matches
 potential_matches = compare_cl.compute(pairs, census_A, census_B)
 ```
+
+
+
+# Data Integration: Record Linkage vs. Regular Joins (Integração de Dados: Vinculação de Registros vs. Junções Regulares)
+
+Data integration often requires combining information from multiple sources. The approach to combining datasets depends heavily on the presence and quality of unique identifiers and the consistency of linking keys. This document differentiates between regular joins, which rely on exact matches, and record linkage (or fuzzy matching), which is necessary when exact matches are unavailable or inconsistent.
+
+---
+
+## English Version
+
+### 1. Record Linkage (Fuzzy Matching)
+
+Record linkage is a technique used to identify records that refer to the same entity across different datasets when a unique, common identifier is absent or inconsistent. It involves finding "fuzzy" matches based on similar but not identical values.
+
+* **Two customer DataFrames containing names and addresses, one with a unique customer identifier and the other without.**
+    * **Explanation:** When one dataset lacks a reliable unique ID for a customer, and you need to link it to another dataset that might have an ID, record linkage techniques would be used. This involves comparing non-unique attributes like names and addresses to probabilistically identify matching customers.
+* **Merging two basketball DataFrames, with `team_A`, `team_B`, and `time` columns, and team names formatted differently across each DataFrame.**
+    * **Explanation:** If team names are, for instance, "Lakers" in one DataFrame and "L.A. Lakers" in another, a regular join on names would fail. Record linkage, potentially using string similarity algorithms on `team_A` and `team_B` alongside `time`, would be necessary to correctly identify and merge records for the same game.
+* **Using an `address` column to unite two DataFrames, with the address in each DataFrame being formatted slightly differently.**
+    * **Explanation:** Addresses are notoriously difficult to standardize. Slight variations like "123 Main St." vs. "123 Main Street" would prevent an exact match. Record linkage techniques, including fuzzy string matching on the `address` column, would be employed to identify records referring to the same physical location.
+
+### 2. Regular Joins
+
+Regular joins are standard database operations that combine rows from two or more tables (or DataFrames) based on a related column between them. They require exact matches on the specified key(s).
+
+* **Consolidating two DataFrames containing details about Datacamp courses, with each Datacamp course having its own unique identifier.**
+    * **Explanation:** If both DataFrames have a `course_id` column that uniquely identifies each course, a regular inner or left join can be performed directly on this `course_id` to combine all relevant information about each course into a single, consolidated view.
+* **Two basketball DataFrames with a common unique identifier per game.**
+    * **Explanation:** If both basketball DataFrames share a column like `game_id` that is unique and consistent across both, a regular join can be used. This allows for straightforward and efficient merging of game-related statistics or event data from different sources into a unified dataset based on the shared `game_id`.
+
+---
+
+## Versão em Português
+
+# Integração de Dados: Vinculação de Registros vs. Junções Regulares
+
+A integração de dados frequentemente exige a combinação de informações de múltiplas fontes. A abordagem para combinar conjuntos de dados depende muito da presença e qualidade de identificadores únicos e da consistência das chaves de vinculação. Este documento diferencia entre junções regulares, que dependem de correspondências exatas, e vinculação de registros (ou correspondência aproximada), que é necessária quando correspondências exatas não estão disponíveis ou são inconsistentes.
+
+---
+
+## Versão em Português
+
+### 1. Vinculação de Registros (Correspondência Aproximada)
+
+Vinculação de registros é uma técnica utilizada para identificar registros que se referem à mesma entidade em diferentes conjuntos de dados quando um identificador único e comum está ausente ou inconsistente. Envolve encontrar correspondências "aproximadas" com base em valores semelhantes, mas não idênticos.
+
+* **Dois DataFrames de clientes contendo nomes e endereços, um com um identificador exclusivo por cliente e outro sem.**
+    * **Explicação:** Quando um conjunto de dados não possui um ID único confiável para um cliente, e você precisa vinculá-lo a outro conjunto de dados que possa ter um ID, técnicas de vinculação de registros seriam usadas. Isso envolve comparar atributos não-únicos como nomes e endereços para identificar probabilisticamente clientes correspondentes.
+* **Mesclando dois DataFrames de basquete, com colunas `team_A`, `team_B` e `time` e nomes de equipes formatados de forma diferente entre cada DataFrame.**
+    * **Explicação:** Se os nomes das equipes são, por exemplo, "Lakers" em um DataFrame e "L.A. Lakers" em outro, uma junção regular por nomes falharia. A vinculação de registros, potencialmente usando algoritmos de similaridade de string em `team_A` e `team_B` juntamente com `time`, seria necessária para identificar e mesclar corretamente os registros para o mesmo jogo.
+* **Usando uma coluna `address` para unir dois DataFrames, com o endereço em cada DataFrame sendo formatado de forma ligeiramente diferente.**
+    * **Explicação:** Endereços são notoriamente difíceis de padronizar. Variações ligeiras como "Av. Principal, 123" vs. "Avenida Principal, nº 123" impediriam uma correspondência exata. Técnicas de vinculação de registros, incluindo correspondência de string aproximada na coluna `address`, seriam empregadas para identificar registros que se referem ao mesmo local físico.
+
+### 2. Junções Regulares
+
+Junções regulares são operações de banco de dados padrão que combinam linhas de duas ou mais tabelas (ou DataFrames) com base em uma coluna relacionada entre elas. Elas exigem correspondências exatas na(s) chave(s) especificada(s).
+
+* **Consolidação de dois DataFrames contendo detalhes sobre os cursos do Datacamp, com cada curso do Datacamp tendo seu próprio identificador exclusivo.**
+    * **Explicação:** Se ambos os DataFrames possuem uma coluna `id_curso` que identifica unicamente cada curso, uma junção interna ou esquerda regular pode ser realizada diretamente neste `id_curso` para combinar todas as informações relevantes sobre cada curso em uma única visão consolidada.
+* **Dois DataFrames de basquete com um identificador exclusivo comum por jogo.**
+    * **Explicação:** Se ambos os DataFrames de basquete compartilham uma coluna como `id_jogo` que é única e consistente entre ambos, uma junção regular pode ser usada. Isso permite a mesclagem direta e eficiente de estatísticas relacionadas ao jogo ou dados de eventos de diferentes fontes em um conjunto de dados unificado com base no `id_jogo` compartilhado.
