@@ -447,3 +447,31 @@ ride_sharing.loc[ride_sharing['ride_dt'] > today, 'ride_dt'] = today
 # Print maximum of ride_dt column
 print(ride_sharing['ride_dt'].max())
 ```
+
+
+# Detecting Duplicate Rows in Data (Detectando Linhas Duplicadas em Dados)
+
+Duplicate rows are a common issue in datasets and can lead to biased analyses, incorrect counts, and skewed model training if not handled properly. Identifying and managing these duplicates is a crucial step in the data cleaning process. In data manipulation libraries like Pandas in Python, the `.duplicated()` method is a powerful tool for this task.
+
+---
+
+## English Version
+
+### Using the `.duplicated()` Method
+
+The `.duplicated()` method is used to identify duplicate rows in a DataFrame (or similar tabular data structure). It returns a boolean Series indicating whether each row is a duplicate of a previous row.
+
+#### Key Parameters:
+
+* **`subset`**: This parameter allows you to specify a list of column names. The method will then check for duplication only across these specified columns. If `subset` is not provided, the method will consider all columns when checking for duplicates.
+    * *Explanation:* This is useful when you consider a row a "duplicate" only if certain key fields (e.g., `first_name`, `last_name`, `email`) are identical, even if other non-key fields might differ.
+* **`keep`**: This parameter determines which duplicate values (if any) to mark as `False` (not a duplicate) and which to mark as `True` (is a duplicate).
+    * **`'first'`**: (Default) Marks duplicates as `True` except for the first occurrence.
+    * **`'last'`**: Marks duplicates as `True` except for the
+ 
+
+```python
+# Column names to check for duplication
+column_names = ['first_name','last_name','address']
+duplicates = height_weight.duplicated(subset = column_names, keep = False)
+```
