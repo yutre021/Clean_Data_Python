@@ -1457,3 +1457,15 @@ Ao lidar com dados ausentes, é crucial entender os padrões por trás deles, po
 
 * **Exemplo Hipotético com Índice de Satisfação do Cliente:**
     Considere um DataFrame contendo índices de satisfação do cliente para um serviço. Se a coluna `satisfaction_score` (pontuação_de_satisfação) está com valores ausentes *especificamente para clientes que estão extremamente insatisfeitos e optaram por não preencher a pesquisa* (porque estavam muito chateados ou apáticos para responder), então isso é MNAR. O fato de a pontuação estar ausente está diretamente relacionado à própria pontuação de satisfação (não observada). Se você analisar apenas as pontuações observadas, provavelmente superestimaria a satisfação média do cliente, pois as pontuações mais baixas estão sistematicamente sub-representadas. A ausência fornece uma pista sobre a verdadeira insatisfação subjacente.
+
+
+
+```python
+# Print number of missing values in banking
+print(banking.isna().sum())
+
+# Visualize missingness matrix
+print(banking.isna().sum())
+msno.matrix(banking)
+plt.show()
+```
