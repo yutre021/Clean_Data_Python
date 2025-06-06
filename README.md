@@ -187,3 +187,106 @@ Ao encontrar pontos de dados que estão fora de um intervalo plausível ou defin
     * **Explicação:** Em alguns casos, o conhecimento do domínio de negócio fornece insights sobre como os dados fora do intervalo devem ser tratados. Em vez de remover ou imputar estatisticamente, um valor personalizado específico pode ser atribuído com base em suposições sobre o processo de negócio ou a origem dos dados. Por exemplo, se um sensor de temperatura reporta -500°C, uma regra de negócio pode ditar que ele seja ajustado para a temperatura válida mais baixa possível para aquele ambiente, ou um valor indicador específico para "mau funcionamento do sensor".
 
 A escolha entre esses métodos depende de fatores como o volume de dados fora do intervalo, sua causa suspeita (ex: erro de entrada de dados, mau funcionamento do sensor, outlier legítimo, mas extremo) e o impacto de cada método na análise subsequente ou no desempenho do modelo.
+
+
+# Common Data Types in Data Science (Tipos de Dados Comuns na Ciência de Dados)
+
+In data science workflows, correctly identifying and managing data types is foundational. Manipulating and analyzing data with incorrect data types can lead to compromised analysis. It is crucial to always verify column data types (e.g., using `.dtypes` or `.info()` in Python) and convert them as needed before proceeding with any analysis.
+
+---
+
+## English Version
+
+### Understanding Common Data Types
+
+Data can be broadly categorized into different types, each suited for specific kinds of information and operations.
+
+#### 1. Numeric Data Types
+
+These types represent quantitative information that can be measured or counted.
+
+* **Number of items purchased in a cart:**
+    * **Explanation:** This is typically an integer, representing a count. It allows for arithmetic operations (e.g., summing up items across multiple carts).
+* **Monthly salary received:**
+    * **Explanation:** This would generally be a decimal or float type, as salaries often involve fractional amounts (e.g., currency values). It's suitable for financial calculations and aggregations.
+
+#### 2. Text Data
+
+Text data (or string data) represents qualitative information, such as names, descriptions, or addresses.
+
+* **City of residence:**
+    * **Explanation:** This is textual information. While it might represent a geographic location, the value itself is a string of characters (e.g., "New York," "London"). It's used for identification, categorization, and display.
+* **Customer delivery address:**
+    * **Explanation:** Addresses are complex strings of characters, often including numbers, letters, and special characters. They are treated as text and are crucial for logistical purposes.
+
+#### 3. Date Data
+
+Date data types represent specific points in time, ranging from dates to timestamps.
+
+* **Customer birth dates:**
+    * **Explanation:** Birth dates are specific calendar dates. Storing them as a date type allows for age calculations, chronological sorting, and time-based analysis (e.g., age distribution of customers).
+* **Product order date:**
+    * **Explanation:** The date a product was ordered is a specific point in time. Storing this as a date or datetime object enables tracking order timelines, calculating delivery durations, or analyzing sales trends over time.
+
+### Importance of Correct Data Types
+
+Assigning the correct data type to each column is vital because:
+* It ensures data integrity and consistency.
+* It allows for accurate mathematical and statistical operations.
+* It optimizes memory usage and performance.
+* It prevents errors in downstream analysis, visualizations, and machine learning models.
+
+Data cleaning often involves careful inspection and conversion of data types to prepare the dataset for robust analysis.
+
+---
+
+## Versão em Português
+
+# Tipos de Dados Comuns na Ciência de Dados
+
+No fluxo de trabalho da ciência de dados, identificar e gerenciar corretamente os tipos de dados é fundamental. Manipular e analisar dados com tipos de dados incorretos pode levar a uma análise comprometida. É crucial sempre verificar os tipos de dados das colunas (ex: usando `.dtypes` ou `.info()` em Python) e convertê-los conforme necessário antes de prosseguir com qualquer análise.
+
+---
+
+## Versão em Português
+
+### Compreendendo os Tipos de Dados Comuns
+
+Os dados podem ser amplamente categorizados em diferentes tipos, cada um adequado para tipos específicos de informação e operações.
+
+#### 1. Tipos de Dados Numéricos
+
+Esses tipos representam informações quantitativas que podem ser medidas ou contadas.
+
+* **Número de itens comprados em uma cesta:**
+    * **Explicação:** Este é tipicamente um número inteiro, representando uma contagem. Permite operações aritméticas (ex: somar itens em vários carrinhos).
+* **Salário recebido mensalmente:**
+    * **Explicação:** Este seria geralmente um tipo decimal ou float, pois os salários frequentemente envolvem valores fracionados (ex: valores monetários). É adequado para cálculos financeiros e agregações.
+
+#### 2. Dados de Texto
+
+Dados de texto (ou dados de string) representam informações qualitativas, como nomes, descrições ou endereços.
+
+* **Cidade de residência:**
+    * **Explicação:** Esta é uma informação textual. Embora possa representar uma localização geográfica, o valor em si é uma string de caracteres (ex: "Nova York", "Londres"). É usado para identificação, categorização e exibição.
+* **Endereço de entrega de um cliente:**
+    * **Explicação:** Endereços são strings complexas de caracteres, frequentemente incluindo números, letras e caracteres especiais. São tratados como texto e são cruciais para fins logísticos.
+
+#### 3. Dados de Data
+
+Tipos de dados de data representam pontos específicos no tempo, desde datas até timestamps.
+
+* **Datas de nascimento dos clientes:**
+    * **Explicação:** Datas de nascimento são datas de calendário específicas. Armazená-las como um tipo de data permite cálculos de idade, classificação cronológica e análise baseada no tempo (ex: distribuição etária de clientes).
+* **Data do pedido de um produto:**
+    * **Explicação:** A data em que um produto foi pedido é um ponto específico no tempo. Armazenar isso como um objeto de data ou datetime permite rastrear cronogramas de pedidos, calcular durações de entrega ou analisar tendências de vendas ao longo do tempo.
+
+### Importância dos Tipos de Dados Corretos
+
+Atribuir o tipo de dado correto a cada coluna é vital porque:
+* Garante a integridade e consistência dos dados.
+* Permite operações matemáticas e estatísticas precisas.
+* Otimiza o uso de memória e o desempenho.
+* Previne erros em análises posteriores, visualizações e modelos de aprendizado de máquina.
+
+A limpeza de dados frequentemente envolve a inspeção cuidadosa e a conversão de tipos de dados para preparar o conjunto de dados para uma análise robusta.
