@@ -400,3 +400,21 @@ dtype:            object
 # Convert to date
 user_signups['subscription_date'] = pd.to_datetime(user_signups['subscription_date']).dt.date
 ```
+
+### Range Date
+
+```python
+# Drop values using filtering
+user_signups = user_signups[user_signups['subscription_date'] < today_date]
+# Drop values using .drop()
+user_signups.drop(user_signups[user_signups['subscription_date'] > today_date].index, inplace = True)
+```
+
+### Hardcode dates with upper limit
+
+```python
+# Drop values using filtering
+user_signups.loc[user_signups['subscription_date'] > today_date, 'subscription_date'] = today_date
+# Assert is true
+assert user_signups.subscription_date.max().date() <= today_date
+```
