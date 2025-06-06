@@ -380,3 +380,23 @@ movies.drop(movies[movies['avg_rating'] > 5].index, inplace = True)
 # Assert results
 assert movies['avg_rating'].max() <= 5
 ```
+
+
+```python
+import datetime as dt
+import pandas as pd
+# Output data types
+user_signups.dtypes
+```
+
+```
+subscription_date object
+user_name         object
+Country           object
+dtype:            object
+```
+
+```python
+# Convert to date
+user_signups['subscription_date'] = pd.to_datetime(user_signups['subscription_date']).dt.date
+```
