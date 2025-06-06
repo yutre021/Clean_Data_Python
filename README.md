@@ -290,3 +290,22 @@ Atribuir o tipo de dado correto a cada coluna é vital porque:
 * Previne erros em análises posteriores, visualizações e modelos de aprendizado de máquina.
 
 A limpeza de dados frequentemente envolve a inspeção cuidadosa e a conversão de tipos de dados para preparar o conjunto de dados para uma análise robusta.
+
+
+
+```python
+# Print the information of ride_sharing
+print(ride_sharing.info())
+
+# Print summary statistics of user_type column
+print(ride_sharing['user_type'].describe())
+
+# Convert user_type from integer to category
+ride_sharing['user_type_cat'] = ride_sharing['user_type'].astype('category')
+
+# Write an assert statement confirming the change
+assert ride_sharing['user_type_cat'].dtype == 'category'
+
+# Print new summary statistics 
+print(ride_sharing['user_type_cat'].describe())
+```
