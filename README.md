@@ -791,3 +791,76 @@ Vamos ilustrar os tipos de junção com um exemplo de tipos sanguíneos em conju
 * **Conceito:** "O que está *tanto* em `study_data` *quanto* em `categories`."
 * **Exemplo:** Usando os mesmos `study_data` e `categories` acima.
 * **Resultado:** Uma junção interna retornaria todos os tipos sanguíneos que são comuns a ambos os conjuntos de dados: `A-`, `O-`, `AB+`, `A+`, `O+`, `B-`. Ela efetivamente retorna a interseção dos dois conjuntos, excluindo elementos únicos de um ou de outro.
+
+
+# Common Data Problems: Membership and Other Constraints (Problemas Comuns de Dados: Restrições de Associação e Outras)
+
+In data cleaning, identifying and addressing various data quality constraints is crucial. Beyond data type, range, and uniqueness, membership constraints for categorical values and other types of inconsistencies frequently arise. This document explores hypothetical data problems and classifies them into their respective categories, providing insights into common data quality challenges.
+
+---
+
+## English Version
+
+### Categorizing Data Quality Issues
+
+Data problems can manifest in various forms, making it essential to categorize them for effective diagnosis and treatment.
+
+#### 1. Membership Restriction
+
+Membership restriction problems occur when values in a column do not belong to a predefined or expected set of valid categories or members. These are often indicators of data entry errors or incorrect data mapping.
+
+* **A `GPA` column containing a `Z-` grade.**
+    * **Explanation:** This is a membership restriction. If a Grading Point Average (GPA) system uses a specific set of grades (e.g., A, B, C, D, F, or numerical scales), then `Z-` is an invalid entry because it falls outside the set of acceptable grades.
+* **A `has_loan` column with the value `12`.**
+    * **Explanation:** This is a membership restriction. A `has_loan` column would typically be a boolean or binary indicator (e.g., `True`/`False`, `1`/`0`, `Yes`/`No`). The value `12` does not belong to this expected set of values, indicating an error.
+* **A `day_of_week` column with the value `Suntermonday`.**
+    * **Explanation:** This is a membership restriction. The valid values for `day_of_week` are typically "Monday," "Tuesday," etc. "Suntermonday" is not a recognized day of the week, violating the predefined set of acceptable values.
+
+#### 2. Other Restriction
+
+This category encompasses various other common data quality problems that do not necessarily relate to membership within a finite set, but rather to type, range, or temporal validity.
+
+* **A `revenue` column represented as a string.**
+    * **Explanation:** This is a data type restriction. Revenue is a monetary value and should be represented as a numerical type (e.g., float or decimal) to allow for arithmetic operations and accurate financial analysis. Storing it as a string prevents proper numerical computations.
+* **An `age` column with values above `138`.**
+    * **Explanation:** This is an out-of-range restriction. While age is a numerical value, a human age of 138 is biologically impossible and outside the plausible range for this type of data. Such values are typically data entry errors or outliers that need to be addressed.
+* **A `birthdate` column with values in the future.**
+    * **Explanation:** This is a temporal restriction. A birthdate, by definition, must be in the past or present. A date in the future for a birthdate is logically impossible and indicates a data entry or parsing error.
+
+---
+
+## Versão em Português
+
+# Problemas Comuns de Dados: Restrições de Associação e Outras
+
+Na limpeza de dados, identificar e abordar várias restrições de qualidade de dados é crucial. Além do tipo de dado, intervalo e unicidade, restrições de associação para valores categóricos e outros tipos de inconsistências surgem frequentemente. Este documento explora problemas hipotéticos de dados e os classifica em suas respectivas categorias, fornecendo insights sobre desafios comuns de qualidade de dados.
+
+---
+
+## Versão em Português
+
+### Categorizando Problemas de Qualidade de Dados
+
+Problemas de dados podem se manifestar de várias formas, tornando essencial categorizá-los para um diagnóstico e tratamento eficazes.
+
+#### 1. Restrição de Associação
+
+Problemas de restrição de associação ocorrem quando os valores em uma coluna não pertencem a um conjunto predefinido ou esperado de categorias ou membros válidos. Estes são frequentemente indicadores de erros de entrada de dados ou mapeamento de dados incorreto.
+
+* **Uma coluna `GPA` contendo uma nota `Z-`.**
+    * **Explicação:** Esta é uma restrição de associação. Se um sistema de Média de Pontos de Graduação (GPA) usa um conjunto específico de notas (ex: A, B, C, D, F, ou escalas numéricas), então `Z-` é uma entrada inválida porque está fora do conjunto de notas aceitáveis.
+* **Uma coluna `has_loan` com o valor `12`.**
+    * **Explicação:** Esta é uma restrição de associação. Uma coluna `has_loan` (tem_empréstimo) seria tipicamente um indicador booleano ou binário (ex: `Verdadeiro`/`Falso`, `1`/`0`, `Sim`/`Não`). O valor `12` não pertence a este conjunto de valores esperado, indicando um erro.
+* **Uma coluna `day_of_week` com o valor `Suntermonday`.**
+    * **Explicação:** Esta é uma restrição de associação. Os valores válidos para `day_of_week` (dia_da_semana) são tipicamente "Segunda-feira", "Terça-feira", etc. "Suntermonday" não é um dia da semana reconhecido, violando o conjunto predefinido de valores aceitáveis.
+
+#### 2. Outra Restrição
+
+Esta categoria engloba vários outros problemas comuns de qualidade de dados que não se relacionam necessariamente com a associação dentro de um conjunto finito, mas sim com tipo, intervalo ou validade temporal.
+
+* **Uma coluna `revenue` representada como uma string.**
+    * **Explicação:** Esta é uma restrição de tipo de dado. Receita é um valor monetário e deve ser representada como um tipo numérico (ex: float ou decimal) para permitir operações aritméticas e análise financeira precisa. Armazená-lo como uma string impede cálculos numéricos adequados.
+* **Uma coluna `age` com valores acima de `138`.**
+    * **Explicação:** Esta é uma restrição de intervalo. Embora a idade seja um valor numérico, uma idade humana de 138 anos é biologicamente impossível e fora do intervalo plausível para esse tipo de dado. Tais valores são tipicamente erros de entrada de dados ou outliers que precisam ser corrigidos.
+* **Uma coluna `birthdate` com valores no futuro.**
+    * **Explanation:** Esta é uma restrição temporal. Uma data de nascimento, por definição, deve ser no passado ou no presente. Uma data no futuro para uma data de nascimento é logicamente impossível e indica um erro de entrada de dados ou de parsing.
