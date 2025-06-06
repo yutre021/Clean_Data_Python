@@ -1710,3 +1710,16 @@ Junções regulares são operações de banco de dados padrão que combinam linh
     * **Explicação:** Se ambos os DataFrames possuem uma coluna `id_curso` que identifica unicamente cada curso, uma junção interna ou esquerda regular pode ser realizada diretamente neste `id_curso` para combinar todas as informações relevantes sobre cada curso em uma única visão consolidada.
 * **Dois DataFrames de basquete com um identificador exclusivo comum por jogo.**
     * **Explicação:** Se ambos os DataFrames de basquete compartilham uma coluna como `id_jogo` que é única e consistente entre ambos, uma junção regular pode ser usada. Isso permite a mesclagem direta e eficiente de estatísticas relacionadas ao jogo ou dados de eventos de diferentes fontes em um conjunto de dados unificado com base no `id_jogo` compartilhado.
+
+
+```python
+# Create an indexer and object and find possible pairs
+indexer = recordlinkage.Index()
+
+# Block pairing on cuisine_type
+# Block pairing on cuisine_type
+indexer.block('cuisine_type')
+
+# Generate pairs
+pairs = indexer.index(restaurants, restaurants_new)
+```
