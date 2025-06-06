@@ -1752,3 +1752,20 @@ comp_cl.string('rest_name', 'rest_name', label='name', threshold = 0.8)
 potential_matches = comp_cl.compute(pairs, restaurants, restaurants_new)
 print(potential_matches)
 ```
+
+### Linking DataFrames
+
+```python
+# Import recordlinkage and generate pairs and compare across columns
+...
+# Generate potential matches
+potential_matches = compare_cl.compute(full_pairs, census_A, census_B)
+# Isolate matches with matching values for 3 or more columns
+matches = potential_matches[potential_matches.sum(axis = 1) >= 3]
+# Get index for matching census_B rows only
+duplicate_rows = matches.index.get_level_values(1)
+# Finding new rows in census_B
+census_B_new = census_B[~census_B.index.isin(duplicate_rows)]
+# Link the DataFrames!
+full_census = census_A.append(census_B_new)
+```
