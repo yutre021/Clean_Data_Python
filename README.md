@@ -93,3 +93,39 @@ Identificar e impor corretamente os tipos de dados é uma etapa fundamental na l
 * **Problemas com análise e modelos de aprendizado de máquina posteriores.**
 
 Portanto, a conversão e validação de tipos de dados são partes cruciais do processo de limpeza de dados para garantir a integridade e a usabilidade dos dados.
+
+
+
+### Strings to integers
+
+```python
+# Import CSV file and output header
+sales = pd.read_csv('sales.csv')
+sales.head(2)
+```
+
+### Get in Data (Recebendo Dados)
+```python
+# Get data types of columns
+sales.dtypes
+```
+
+### INFORMATION (Informação)
+
+```python
+# Get DataFrame information
+sales.info()
+```
+
+### Function Describe (Função de escrita)
+
+```python
+df['marriage_status'].describe()
+```
+
+# Convert to categorical (Convertendo para Categórico)
+```python
+
+df["marriage_status"] = df["marriage_status"].astype('category')
+df.describe()
+```
