@@ -448,7 +448,6 @@ ride_sharing.loc[ride_sharing['ride_dt'] > today, 'ride_dt'] = today
 print(ride_sharing['ride_dt'].max())
 ```
 
-
 # Detecting Duplicate Rows in Data (Detectando Linhas Duplicadas em Dados)
 
 Duplicate rows are a common issue in datasets and can lead to biased analyses, incorrect counts, and skewed model training if not handled properly. Identifying and managing these duplicates is a crucial step in the data cleaning process. In data manipulation libraries like Pandas in Python, the `.duplicated()` method is a powerful tool for this task.
@@ -467,8 +466,53 @@ The `.duplicated()` method is used to identify duplicate rows in a DataFrame (or
     * *Explanation:* This is useful when you consider a row a "duplicate" only if certain key fields (e.g., `first_name`, `last_name`, `email`) are identical, even if other non-key fields might differ.
 * **`keep`**: This parameter determines which duplicate values (if any) to mark as `False` (not a duplicate) and which to mark as `True` (is a duplicate).
     * **`'first'`**: (Default) Marks duplicates as `True` except for the first occurrence.
-    * **`'last'`**: Marks duplicates as `True` except for the
- 
+    * **`'last'`**: Marks duplicates as `True` except for the last occurrence.
+    * **`False` (or `all`)**: Marks *all* occurrences of a duplicate value as `True`. This is useful when you want to identify every instance of a duplicate.
+
+### Importance in Data Cleaning:
+
+By accurately identifying duplicate rows, data analysts and engineers can:
+* Prevent double-counting in aggregations.
+* Improve the accuracy of statistical models.
+* Ensure the uniqueness of records where required.
+* Reduce storage redundancy.
+
+The `keep` parameter's flexibility allows for different strategies in handling duplicates, depending on whether you want to retain a specific instance or remove all instances of a duplicate.
+
+---
+
+## Versão em Português
+
+# Detectando Linhas Duplicadas em Dados
+
+Linhas duplicadas são um problema comum em conjuntos de dados e podem levar a análises tendenciosas, contagens incorretas e treinamento de modelos distorcidos se não forem tratadas adequadamente. Identificar e gerenciar essas duplicatas é uma etapa crucial no processo de limpeza de dados. Em bibliotecas de manipulação de dados como Pandas em Python, o método `.duplicated()` é uma ferramenta poderosa para essa tarefa.
+
+---
+
+## Versão em Português
+
+### Usando o Método `.duplicated()`
+
+O método `.duplicated()` é usado para identificar linhas duplicadas em um DataFrame (ou estrutura de dados tabular semelhante). Ele retorna uma Série booleana indicando se cada linha é uma duplicata de uma linha anterior.
+
+#### Parâmetros Chave:
+
+* **`subset`**: Este parâmetro permite especificar uma lista de nomes de colunas. O método verificará então a duplicação apenas nessas colunas especificadas. Se `subset` não for fornecido, o método considerará todas as colunas ao verificar duplicatas.
+    * *Explicação:* Isso é útil quando você considera uma linha uma "duplicata" apenas se certos campos chave (ex: `first_name`, `last_name`, `address`) forem idênticos, mesmo que outros campos possam diferir.
+* **`keep`**: Este parâmetro determina quais valores duplicados (se houver) marcar como `False` (não é uma duplicata) e quais marcar como `True` (é uma duplicata).
+    * **`'first'`**: (Padrão) Marca as duplicatas como `True`, exceto a primeira ocorrência.
+    * **`'last'`**: Marca as duplicatas como `True`, exceto a última ocorrência.
+    * **`False` (ou `all`)**: Marca *todas* as ocorrências de um valor duplicado como `True`. Isso é útil quando você deseja identificar cada instância de uma duplicata.
+
+### Importância na Limpeza de Dados:
+
+Ao identificar com precisão as linhas duplicadas, analistas e engenheiros de dados podem:
+* Prevenir dupla contagem em agregações.
+* Melhorar a precisão dos modelos estatísticos.
+* Garantir a unicidade dos registros quando necessário.
+* Reduzir a redundância de armazenamento.
+
+A flexibilidade do parâmetro `keep` permite diferentes estratégias no tratamento de duplicatas, dependendo se você deseja reter uma instância específica ou remover todas as instâncias de uma duplicata.
 
 ```python
 # Column names to check for duplication
