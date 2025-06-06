@@ -580,19 +580,19 @@ print("\nConsolidated DataFrame:\n", consolidated_df)
 * Após identificar linhas ou valores duplicados em um conjunto de dados, a próxima etapa na limpeza de dados é frequentemente decidir como tratá-los. Em vez de simplesmente remover duplicatas, o que pode levar à perda de informações valiosas, você pode querer resumi-las ou agregá-las. Na manipulação de dados, particularmente com bibliotecas como Pandas em Python, os métodos .groupby() e .agg() são ferramentas poderosas para consolidar informações duplicadas.
 
 ### Versão em Português
-- Consolidando Duplicatas com .groupby() e .agg()
+- Consolidando Duplicatas com `.groupby()` e `.agg()`
 - O método .groupby() permite agrupar linhas com base em um ou mais valores de coluna, reunindo efetivamente todas as linhas que compartilham as mesmas características (que frequentemente incluem duplicatas). Uma vez agrupado, o método .agg() (agregar) é usado para aplicar uma ou mais funções aos grupos, resumindo os dados.
 
 ### Como funciona:
-* Método **.groupby()**:
+* Método `.groupby()`:
 
 - Propósito: Este método é usado para dividir o DataFrame em grupos com base em algum critério. Ao lidar com duplicatas, você normalmente agruparia pelas colunas que definem as linhas duplicadas.
 - Mecanismo: Ele cria um objeto GroupBy, que é uma estrutura intermediária. Não realiza imediatamente nenhum cálculo, mas configura a estrutura para aplicar funções de agregação.
 
-* Método .agg():
+* Método `.agg()`:
 
-- Propósito: Este método é usado para aplicar uma ou mais funções de agregação (como sum(), mean(), count(), first(), last(), min(), max(), etc.) aos dados agrupados.
-- Mecanismo: Após o agrupamento, .agg() calcula um único resultado para cada grupo, consolidando efetivamente as linhas duplicadas em uma única linha resumida.
+- Propósito: Este método é usado para aplicar uma ou mais funções de agregação (como `sum()`, `mean()`,` count()`, `first()`, `last()`, `min()`, `max()`, etc.) aos dados agrupados.
+- Mecanismo: Após o agrupamento, `.agg()` calcula um único resultado para cada grupo, consolidando efetivamente as linhas duplicadas em uma única linha resumida.
 - Cenário de Exemplo:
 - Imagine que você tem um DataFrame com entradas duplicadas para pedidos de clientes, mas deseja consolidá-las em um único registro por cliente, somando as quantidades, por exemplo.
 
